@@ -1,5 +1,7 @@
 # RK_Csv
 
+[![Build Status](https://travis-ci.org/rskuipers/RK_Csv.png?branch=master)](https://travis-ci.org/rskuipers/RK_Csv)
+
 ## What is it
 
 This is a CSV library tailored for Magento, it's made to give you an easy start on reading CSV files.
