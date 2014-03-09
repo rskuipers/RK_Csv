@@ -1,12 +1,14 @@
 <?php
 
+namespace RK\Csv;
+
 require_once __DIR__ . '/../vendor/autoload.php';
 
 /**
  * Class FileTest
  * @author Rick Kuipers <io@rskuipers.com>
  */
-class FileTest extends PHPUnit_Framework_TestCase
+class FileTest extends \PHPUnit_Framework_TestCase
 {
 
     /**
@@ -29,33 +31,36 @@ CSV;
 
     /**
      * Test the fetch method with the RK_Csv_File::COLUMN_TITLES mode
+     * @test
      */
-    public function testFetchColumnTitles()
+    public function fetchColumnTitles()
     {
-$file = new RK_Csv_File($this->getCsvFile(), 0);
-$file->setMappingMode(RK_Csv_File::COLUMN_TITLES);
-$row = $file->fetch();
-$this->assertEquals('John', $row['Name']);
+        $file = new \RK_Csv_File($this->getCsvFile(), 0);
+        $file->setMappingMode(\RK_Csv_File::COLUMN_TITLES);
+        $row = $file->fetch();
+        $this->assertEquals('John', $row['Name']);
     }
 
     /**
      * Test the fetch method with the RK_Csv_File::INDEX mode
+     * @test
      */
-    public function testFetchIndex()
+    public function fetchIndex()
     {
-        $file = new RK_Csv_File($this->getCsvFile(), 0);
-        $file->setMappingMode(RK_Csv_File::INDEX);
+        $file = new \RK_Csv_File($this->getCsvFile(), 0);
+        $file->setMappingMode(\RK_Csv_File::INDEX);
         $row = $file->fetch();
         $this->assertEquals('John', $row[1]);
     }
 
     /**
      * Test the fetch method with the RK_Csv_File::CUSTOM mode
+     * @test
      */
-    public function testFetchCustom()
+    public function fetchCustom()
     {
-        $file = new RK_Csv_File($this->getCsvFile(), 0);
-        $file->setMappingMode(RK_Csv_File::CUSTOM);
+        $file = new \RK_Csv_File($this->getCsvFile(), 0);
+        $file->setMappingMode(\RK_Csv_File::CUSTOM);
         $file->setMapping(array(
             'ID',
             'First Name',
