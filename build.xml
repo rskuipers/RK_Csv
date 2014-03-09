@@ -22,14 +22,6 @@
 
     <target name="build" depends="phplint, phpunit" />
 
-    <target name="phpunit" description="Runs the PHPUnit test suite">
-        <phpunit haltonfailure="true">
-            <batchtest>
-                <fileset refid="test.files" />
-            </batchtest>
-        </phpunit>
-    </target>
-
     <target name="phplint" description="Check for syntax errors">
         <phplint haltonfailure="true">
             <fileset dir="${project.basedir}">
@@ -37,6 +29,10 @@
                 <patternset refid="test.patterns" />
             </fileset>
         </phplint>
+    </target>
+
+    <target name="phpunit" description="Runs the PHPUnit test suite">
+        <exec command="phpunit" passthru="true" checkreturn="true" />
     </target>
 
 </project>
