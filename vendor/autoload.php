@@ -3,7 +3,7 @@
 spl_autoload_register(function($className)
 {
     $className = ltrim($className, '\\');
-    $fileName  = 'src' . DIRECTORY_SEPARATOR;
+    $fileName  = dirname(__DIR__) . DIRECTORY_SEPARATOR . 'src' . DIRECTORY_SEPARATOR;
     if ($lastNsPos = strrpos($className, '\\')) {
         $namespace = substr($className, 0, $lastNsPos);
         $className = substr($className, $lastNsPos + 1);
