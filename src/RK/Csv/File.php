@@ -53,6 +53,11 @@ class RK_Csv_File extends SplFileObject
     protected $delimiter = ',';
 
     /**
+     * @var RK_Csv_Formatter_Interface[]
+     */
+    protected $formatters = array();
+
+    /**
      * @param string $filename
      * @param int $columnTitlesIndex
      * @param string $open_mode
@@ -85,7 +90,7 @@ class RK_Csv_File extends SplFileObject
                     $this->mapping = array_filter($row);
                     continue;
                 }
-                return array_combine($this->mapping, $row);
+                $row = array_combine($this->mapping, $row);
             } elseif ($this->mappingMode == self::CUSTOM) {
                 if ($this->position == $this->columnTitlesIndex) {
                     continue;
@@ -93,14 +98,26 @@ class RK_Csv_File extends SplFileObject
                 if (!is_array($this->mapping)) {
                     throw new RK_Csv_Exception_InvalidMappingException('Mapping is set to custom but no mapping was found.');
                 }
-                return array_combine($this->mapping, $row);
+                $row = array_combine($this->mapping, $row);
             } else {
                 if ($this->position == $this->columnTitlesIndex) {
                     continue;
                 }
-                return $row;
             }
+            foreach ($this->formatters as $column => $formatter) {
+                $row[$column] = $formatter->parse($row[$column]);
+            }
+            return $row;
         }
+    }
+
+    /**
+     * @param $column
+     * @param RK_Csv_Formatter_Interface $formatter
+     */
+    public function setFormatter($column, RK_Csv_Formatter_Interface $formatter)
+    {
+        $this->formatters[$column] = $formatter;
     }
 
     /**
