@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit colors="true">
     <testsuites>
-        <testsuite name="RK_Csv">
+        <testsuite name="RK Csv">
             <directory>tests/</directory>
         </testsuite>
     </testsuites>
