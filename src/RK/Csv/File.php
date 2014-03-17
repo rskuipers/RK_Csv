@@ -23,11 +23,6 @@ class RK_Csv_File extends SplFileObject
     const INDEX = 3;
 
     /**
-     * @var SplFileObject
-     */
-    protected $file;
-
-    /**
      * @var int
      */
     protected $columnTitlesIndex = -1;
@@ -68,9 +63,9 @@ class RK_Csv_File extends SplFileObject
     {
         $this->columnTitlesIndex = $columnTitlesIndex;
         if (is_null($context)) {
-            $this->file = parent::__construct($filename, $open_mode, $use_include_path);
+            parent::__construct($filename, $open_mode, $use_include_path);
         } else {
-            $this->file = parent::__construct($filename, $open_mode, $use_include_path, $context);
+            parent::__construct($filename, $open_mode, $use_include_path, $context);
         }
     }
 
@@ -167,22 +162,6 @@ class RK_Csv_File extends SplFileObject
     public function getMappingMode()
     {
         return $this->mappingMode;
-    }
-
-    /**
-     * @param SplFileObject $file
-     */
-    public function setFile($file)
-    {
-        $this->file = $file;
-    }
-
-    /**
-     * @return SplFileObject
-     */
-    public function getFile()
-    {
-        return $this->file;
     }
 
     /**
