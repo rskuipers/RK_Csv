@@ -3,6 +3,8 @@
 
     <property name="src.dir" value="src" />
     <property name="tests.dir" value="tests" />
+    <property name="build.dir" value="build" />
+    <property name="cache.dir" value="${build.dir}/cache" />
 
     <patternset id="php.patterns">
         <include name="${src.dir}/**/*.php" />
@@ -20,10 +22,22 @@
         <patternset refid="test.patterns" />
     </fileset>
 
-    <target name="build" depends="phplint, phpunit" />
+    <target name="prepare">
+        <mkdir dir="${build.dir}" />
+        <mkdir dir="${cache.dir}" />
+    </target>
 
-    <target name="phplint" description="Check for syntax errors">
-        <phplint haltonfailure="true">
+    <target name="build" depends="phplint, phpcs, phpunit" />
+
+    <target name="phpcs" depends="prepare">
+        <phpcodesniffer standard="${project.basedir}/phing/phpcs.xml">
+            <fileset refid="php.files" />
+            <formatter type="full" usefile="false" />
+        </phpcodesniffer>
+    </target>
+
+    <target name="phplint" description="Check for syntax errors" depends="prepare">
+        <phplint haltonfailure="true" cachefile="${project.basedir}/build/cache/phplint.cache">
             <fileset dir="${project.basedir}">
                 <patternset refid="php.patterns" />
                 <patternset refid="test.patterns" />
@@ -31,7 +45,7 @@
         </phplint>
     </target>
 
-    <target name="phpunit" description="Runs the PHPUnit test suite">
+    <target name="phpunit" description="Runs the PHPUnit test suite" depends="prepare">
         <exec command="phpunit" passthru="true" checkreturn="true" />
     </target>
 
