@@ -20,6 +20,7 @@ installPearTask ()
     which phing >/dev/null                      &&
         pear upgrade pear.phing.info/phing ||
         pear install --alldeps pear.phing.info/phing
+        pear install PHP_CodeSniffer
 
     # update paths
     phpenv rehash
