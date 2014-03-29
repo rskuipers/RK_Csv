@@ -46,7 +46,7 @@
     </target>
 
     <target name="phpunit" description="Runs the PHPUnit test suite" depends="prepare">
-        <exec command="phpunit" passthru="true" checkreturn="true" />
+        <exec command="phpunit" passthru="true" checkreturn="true" dir="${tests.dir}" />
     </target>
 
 </project>

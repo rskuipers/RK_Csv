@@ -1,10 +1,15 @@
 <?php
 
+namespace RSKuipers\Csv;
+
+use RSKuipers\Csv\Formatter\FormatterInterface;
+use RSKuipers\Csv\Exception\InvalidMappingException;
+
 /**
- * Class RK_Csv_File
- * @author Rick Kuipers <io@rskuipers.com>
+ * Class File
+ * @package RSKuipers\Csv
  */
-class RK_Csv_File extends SplFileObject
+class File extends \SplFileObject
 {
 
     /**
@@ -48,7 +53,7 @@ class RK_Csv_File extends SplFileObject
     protected $delimiter = ',';
 
     /**
-     * @var RK_Csv_Formatter_Interface[]
+     * @var FormatterInterface[]
      */
     protected $formatters = array();
 
@@ -71,7 +76,7 @@ class RK_Csv_File extends SplFileObject
 
     /**
      * @return array
-     * @throws RK_Csv_Exception_InvalidMappingException
+     * @throws InvalidMappingException
      */
     public function fetch()
     {
@@ -91,7 +96,7 @@ class RK_Csv_File extends SplFileObject
                     continue;
                 }
                 if (!is_array($this->mapping)) {
-                    throw new RK_Csv_Exception_InvalidMappingException('Mapping is set to custom but no mapping was found.');
+                    throw new InvalidMappingException('Mapping is set to custom but no mapping was found.');
                 }
                 $row = array_combine($this->mapping, $row);
             } else {
@@ -108,9 +113,9 @@ class RK_Csv_File extends SplFileObject
 
     /**
      * @param $column
-     * @param RK_Csv_Formatter_Interface $formatter
+     * @param FormatterInterface $formatter
      */
-    public function setFormatter($column, RK_Csv_Formatter_Interface $formatter)
+    public function setFormatter($column, FormatterInterface $formatter)
     {
         $this->formatters[$column] = $formatter;
     }

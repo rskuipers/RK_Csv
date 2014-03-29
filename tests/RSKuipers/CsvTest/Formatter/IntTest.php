@@ -1,9 +1,14 @@
 <?php
 
-namespace RK\Csv\Formatter;
+namespace RSKuipers\CsvTest\Formatter;
 
-require_once __DIR__ . '/../../vendor/autoload.php';
+use RSKuipers\Csv\File;
+use RSKuipers\Csv\Formatter\Int;
 
+/**
+ * Class IntTest
+ * @package RSKuipers\CsvTest\Formatter
+ */
 class IntTest extends \PHPUnit_Framework_TestCase
 {
 
@@ -30,9 +35,9 @@ CSV;
      */
     public function itShouldParseColumnAsInt()
     {
-        $intFormatter = new \RK_Csv_Formatter_Int('nl_NL');
-        $csv = new \RK_Csv_File($this->getCsvFile(), 0);
-        $csv->setMappingMode(\RK_Csv_File::COLUMN_TITLES);
+        $intFormatter = new Int('nl_NL');
+        $csv = new File($this->getCsvFile(), 0);
+        $csv->setMappingMode(File::COLUMN_TITLES);
         $csv->setFormatter('Stock', $intFormatter);
         $row = $csv->fetch();
         $this->assertInternalType('int', $row['Stock']);

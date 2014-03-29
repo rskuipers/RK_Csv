@@ -1,8 +1,9 @@
 <?php
 
-namespace RK\Csv\Formatter;
+namespace RSKuipers\CsvTest\Formatter;
 
-require_once __DIR__ . '/../../vendor/autoload.php';
+use RSKuipers\Csv\File;;
+use RSKuipers\Csv\Formatter\Decimal;
 
 class DecimalTest extends \PHPUnit_Framework_TestCase
 {
@@ -30,9 +31,9 @@ CSV;
      */
     public function itShouldParseColumnAsDecimal()
     {
-        $decimalFormatter = new \RK_Csv_Formatter_Decimal('nl_NL');
-        $csv = new \RK_Csv_File($this->getCsvFile(), 0);
-        $csv->setMappingMode(\RK_Csv_File::COLUMN_TITLES);
+        $decimalFormatter = new Decimal('nl_NL');
+        $csv = new File($this->getCsvFile(), 0);
+        $csv->setMappingMode(File::COLUMN_TITLES);
         $csv->setFormatter('Rating', $decimalFormatter);
         $csv->setFormatter('Views', $decimalFormatter);
         $row = $csv->fetch();

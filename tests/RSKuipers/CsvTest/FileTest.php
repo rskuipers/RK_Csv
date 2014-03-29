@@ -1,12 +1,12 @@
 <?php
 
-namespace RK\Csv;
+namespace RSKuipers\CsvTest;
 
-require_once __DIR__ . '/../vendor/autoload.php';
+use RSKuipers\Csv\File;
 
 /**
  * Class FileTest
- * @author Rick Kuipers <io@rskuipers.com>
+ * @package RSKuipers\CsvTest
  */
 class FileTest extends \PHPUnit_Framework_TestCase
 {
@@ -35,8 +35,8 @@ CSV;
      */
     public function fetchColumnTitles()
     {
-        $file = new \RK_Csv_File($this->getCsvFile(), 0);
-        $file->setMappingMode(\RK_Csv_File::COLUMN_TITLES);
+        $file = new File($this->getCsvFile(), 0);
+        $file->setMappingMode(File::COLUMN_TITLES);
         $row = $file->fetch();
         $this->assertEquals('John', $row['Name']);
     }
@@ -47,8 +47,8 @@ CSV;
      */
     public function fetchIndex()
     {
-        $file = new \RK_Csv_File($this->getCsvFile(), 0);
-        $file->setMappingMode(\RK_Csv_File::INDEX);
+        $file = new File($this->getCsvFile(), 0);
+        $file->setMappingMode(File::INDEX);
         $row = $file->fetch();
         $this->assertEquals('John', $row[1]);
     }
@@ -59,8 +59,8 @@ CSV;
      */
     public function fetchCustom()
     {
-        $file = new \RK_Csv_File($this->getCsvFile(), 0);
-        $file->setMappingMode(\RK_Csv_File::CUSTOM);
+        $file = new File($this->getCsvFile(), 0);
+        $file->setMappingMode(File::CUSTOM);
         $file->setMapping(array(
             'ID',
             'First Name',

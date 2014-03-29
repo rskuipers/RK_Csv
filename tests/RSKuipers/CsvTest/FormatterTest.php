@@ -1,9 +1,14 @@
 <?php
 
-namespace RK\Csv;
+namespace RSKuipers\CsvTest;
 
-require_once __DIR__ . '/../vendor/autoload.php';
+use RSKuipers\Csv\File;
+use RSKuipers\Csv\Formatter\FormatterInterface;
 
+/**
+ * Class FormatterTest
+ * @package RSKuipers\CsvTest
+ */
 class FormatterTest extends \PHPUnit_Framework_TestCase
 {
     /**
@@ -29,13 +34,13 @@ CSV;
      */
     public function itShouldParseColumnAsFloat()
     {
-        /** @var \RK_Csv_Formatter_Interface $fooFormatter */
-        $fooFormatter = $this->getMock('RK_Csv_Formatter_Interface', array('parse'));
+        /** @var FormatterInterface $fooFormatter */
+        $fooFormatter = $this->getMock('RSKuipers\Csv\Formatter\FormatterInterface', array('parse'));
         $fooFormatter->expects($this->atLeastOnce())
             ->method('parse')
             ->will($this->returnValue('Foo'));
-        $csv = new \RK_Csv_File($this->getCsvFile(), 0);
-        $csv->setMappingMode(\RK_Csv_File::COLUMN_TITLES);
+        $csv = new File($this->getCsvFile(), 0);
+        $csv->setMappingMode(File::COLUMN_TITLES);
         $csv->setFormatter('Name', $fooFormatter);
         $row = $csv->fetch();
         $this->assertEquals('Foo', $row['Name']);
