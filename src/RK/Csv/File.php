@@ -77,6 +77,9 @@ class RK_Csv_File extends SplFileObject
     {
         while ($row = $this->fgetcsv($this->delimiter)) {
             $this->position++;
+            if (!count($row) || (count($row) === 1 && is_null($row[0]))) {
+                continue;
+            }
             if ($this->position < $this->columnTitlesIndex) {
                 continue;
             }
